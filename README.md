@@ -1,3 +1,3 @@
 # tera-greeter
-Greet people with !greet &lt;name>.
+Greet people with !greet name.
 Case sensitive.
