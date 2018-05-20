@@ -1,0 +1,12 @@
+{
+  "files": {
+    "index.js": "821c99f46d18d6d8867ee1bd9502f652c647bf15140a8f5beb2ffbebf91b881c",
+    "README.md": "2f1aa7c9eafcc0a815944bec63305bb0316a9d339477aa507a79fd3f040445cd"
+  },
+  "defs": {
+    "C_PLAYER_LOCATION": 5,
+    "S_SPAWN_ME": 2,
+    "S_SPAWN_USER": 13,
+    "S_DESPAWN_USER": 3
+  }
+}
