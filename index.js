@@ -8,7 +8,7 @@ module.exports = function greeter(dispatch) {
     let w;
     let gameid;
 
-    dispatch.hook('C_PLAYER_LOCATION', 4, packet => {
+    dispatch.hook('C_PLAYER_LOCATION', 3, packet => {
         loc = packet.loc;
         w = packet.w;
     })
