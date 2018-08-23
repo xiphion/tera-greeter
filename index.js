@@ -1,43 +1,54 @@
-const Command = require('command');
-const Vec3 = require('tera-vec3');
+var stringSimilarity = require('string-similarity');
+class greeter {
+	constructor(mod) {
+		let users = [];
+		let loc
+		let boyo;
 
-module.exports = function greeter(dispatch) {
-    const command = Command(dispatch);
-    let users = [];
-    let loc = new Vec3();
-    let w;
-    let gameid;
+		mod.hook('C_PLAYER_LOCATION', 5, packet => {
+			loc = packet;
+		})
 
-    dispatch.hook('C_PLAYER_LOCATION', 3, packet => {
-        loc = packet.loc;
-        w = packet.w;
-    })
+		mod.hook('S_SPAWN_ME', 3, packet => {
+			loc = packet;
+			users = [];
+		})
 
-    dispatch.hook('S_SPAWN_ME', 2, packet => {
-        loc = packet.loc;
-        w = packet.w;
-    })
+		mod.hook('S_SPAWN_USER', 13, packet => {
+			users[packet.name] = packet.gameId;
+		})
 
-    dispatch.hook('S_SPAWN_USER', 13, packet => {
-        users[packet.name] = packet.gameId;
-    })
-
-    dispatch.hook('S_DESPAWN_USER', 3, packet => {
-        users.splice(packet.name,1);
-    })
-
-    command.add('greetdbg', () => {
-        console.log(users);
-    })
-
-    command.add('greet', (person) => {
-        dispatch.toServer('C_START_INSTANCE_SKILL', 3, {
-            skill: 127510165,
-            loc: loc,
-            w: w,
-            unk: false,
-            targets: [{unk1:0, target:users[person], unk2: 0}],
-            endpoints: [{loc: loc}]
-        })
-    })
+		mod.command.add('greet', {
+			$default(person) {
+				if (!person) {
+					console.log('enter the character name of the person you want to greet');
+					return;
+				}
+				boyo = stringSimilarity.findBestMatch(person, Object.keys(users)).bestMatch.target;
+				mod.send('C_START_INSTANCE_SKILL', 4, {
+					skill: {
+						npc: false,
+						type: 1,
+						id: 60401301
+					},
+					loc: loc.loc,
+					w: loc.w,
+					unk: false,
+					targets: [{
+						unk1: 0,
+						target: users[boyo],
+						unk2: 0
+					}],
+					endpoints: [{
+						loc: loc
+					}]
+				})
+			}
+		})
+	}
+	destructor() {
+		mod.command.remove('greet');
+	}
 }
+
+module.exports = greeter

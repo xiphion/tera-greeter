@@ -1,4 +1,6 @@
 {
-  "servers": ["https://raw.githubusercontent.com/iribae/tera-greeter/master/"],
-  "supportUrl": "https://github.com/iribae/tera-greeter/issues"
+	"servers": ["https://raw.githubusercontent.com/iribae/tera-greeter/master/"],
+	"supportUrl": ["https://github.com/Foglio1024/hide-thralls/issues", "https://discord.gg/maqBmJV"],
+	"niceName": "greeter",
+	"disableAutoUpdate": false
 }
