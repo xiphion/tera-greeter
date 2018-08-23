@@ -21,10 +21,15 @@ class greeter {
 		mod.command.add('greet', {
 			$default(person) {
 				if (!person) {
-					console.log('enter the character name of the person you want to greet');
+					mod.command.message('enter the character name of the person you want to greet');
 					return;
 				}
-				boyo = stringSimilarity.findBestMatch(person, Object.keys(users)).bestMatch.target;
+				boyo = stringSimilarity.findBestMatch(person, Object.keys(users))
+				if (boyo.bestMatch.rating < 0.4) {
+					mod.command.message('person with that name not found - be more specific');
+					return;
+				}
+				boyo = boyo.bestMatch.target;
 				mod.send('C_START_INSTANCE_SKILL', 4, {
 					skill: {
 						npc: false,
