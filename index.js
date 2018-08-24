@@ -51,7 +51,7 @@ class greeter {
 			}
 		})
 	}
-	destructor() {
+	destructor(mod) {
 		mod.command.remove('greet');
 	}
 }
