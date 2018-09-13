@@ -4,7 +4,7 @@ class greeter {
 		let users = [];
 		let loc
 		let boyo;
-
+		/*
 		mod.hook('C_PLAYER_LOCATION', 5, packet => {
 			loc = packet;
 		})
@@ -17,9 +17,11 @@ class greeter {
 		mod.hook('S_SPAWN_USER', 13, packet => {
 			users[packet.name] = packet.gameId;
 		})
-
+		*/
 		mod.command.add('greet', {
 			$default(person) {
+				mod.command.message('please be patient i have acoustism :)');
+				/*
 				if (!person) {
 					mod.command.message('enter the character name of the person you want to greet');
 					return;
@@ -47,12 +49,9 @@ class greeter {
 					endpoints: [{
 						loc: loc
 					}]
-				})
+				})*/
 			}
 		})
-	}
-	destructor(mod) {
-		mod.command.remove('greet');
 	}
 }
 
