@@ -10,46 +10,21 @@ class greeter {
 		let index;
 		let angle;
 		let tempPackie;
-
-		mod.hook('C_NOTIFY_LOCATION_IN_ACTION', 4, { filter: { fake: null, modified: null } }, packet => {
-			loc = packet.loc;
-		})
-		
-		mod.hook('C_NOTIFY_LOCATION_IN_DASH', 4, { filter: { fake: null, modified: null } }, packet => {
-			loc = packet.loc;
-		})
-		
-		mod.hook('C_PRESS_SKILL', 4, { filter: { fake: null, modified: null } }, packet => {
-			loc = packet.loc;
-		})
-		
-		mod.hook('C_START_SKILL', 7, { filter: { fake: null, modified: null } }, packet => {
-			loc = packet.loc;
-		})
-		
-		mod.hook('C_START_TARGETED_SKILL', 7, { filter: { fake: null, modified: null } }, packet => {
-			loc = packet.loc;
-		})
-		
-		mod.hook('C_START_COMBO_INSTANT_SKILL', 6, { filter: { fake: null, modified: null } }, packet => {
-			loc = packet.loc;	
-		})
-		
-		mod.hook('C_START_INSTANCE_SKILL', 7, { filter: { fake: null, modified: null } }, packet => {
-			loc = packet.loc;
-		})
-		
-		mod.hook('C_START_INSTANCE_SKILL_EX', 5, { filter: { fake: null, modified: null } }, packet => {
-			loc = packet.loc;
-		})
 		
 		mod.hook('C_PLAYER_LOCATION', 5, packet => {
 			loc = packet.loc;
 			angle = packet.w;
 		})
-		
-		mod.hook('C_PLAYER_FLYING_LOCATION', 4, packet => {
+		mod.hook('S_ACTION_STAGE', 9, packet => {
+			if(!mod.game.me.is(packet.gameId) return;
 			loc = packet.loc;
+			angle = packet.w;
+		})
+				
+		mod.hook('S_ACTION_END', 5, packet => {
+			if(!mod.game.me.is(packet.gameId) return;
+			loc = packet.loc;
+			angle = packet.w;
 		})
 		
 		mod.hook('S_SPAWN_ME', 3, packet => {
